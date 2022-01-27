@@ -2,10 +2,10 @@ package zentaoService
 
 import (
 	testingService "github.com/aaronchen2k/deeptest/internal/command/service/testing"
-	configUtils "github.com/aaronchen2k/deeptest/internal/command/utils/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	"strconv"
 )
 

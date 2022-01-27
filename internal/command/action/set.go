@@ -1,7 +1,7 @@
 package action
 
 import (
-	configUtils "github.com/aaronchen2k/deeptest/internal/command/utils/config"
+	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 )
 
 func Set() {

@@ -2,9 +2,9 @@ package action
 
 import (
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
-	assertUtils "github.com/aaronchen2k/deeptest/internal/command/utils/assert"
 	scriptUtils "github.com/aaronchen2k/deeptest/internal/command/utils/script"
 	zentaoUtils "github.com/aaronchen2k/deeptest/internal/command/utils/zentao"
+	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	"log"
 )
 

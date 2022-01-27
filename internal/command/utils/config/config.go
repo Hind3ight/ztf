@@ -3,7 +3,6 @@ package configUtils
 import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/model"
-	assertUtils "github.com/aaronchen2k/deeptest/internal/command/utils/assert"
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/display"
@@ -13,6 +12,7 @@ import (
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	"github.com/fatih/color"
 	"gopkg.in/ini.v1"
 	"os"

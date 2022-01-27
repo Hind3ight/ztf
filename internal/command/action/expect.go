@@ -1,7 +1,6 @@
 package action
 
 import (
-	assertUtils "github.com/aaronchen2k/deeptest/internal/command/utils/assert"
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	configUtils "github.com/aaronchen2k/deeptest/internal/command/utils/config"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
@@ -10,6 +9,7 @@ import (
 	shellUtils "github.com/aaronchen2k/deeptest/internal/command/utils/shell"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	"path"
 	"path/filepath"
 	"strings"

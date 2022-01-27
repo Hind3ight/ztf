@@ -2,7 +2,7 @@ package action
 
 import (
 	scriptService "github.com/aaronchen2k/deeptest/internal/command/service/script"
-	assertUtils "github.com/aaronchen2k/deeptest/internal/command/utils/assert"
+	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 )
 
 func List(files []string, keywords string) {

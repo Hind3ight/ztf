@@ -1,10 +1,10 @@
 package langUtils
 
 import (
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
 	"path"
 	"sort"

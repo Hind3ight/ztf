@@ -2,9 +2,9 @@ package action
 
 import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"os"
 )
 

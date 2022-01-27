@@ -3,13 +3,13 @@ package scriptUtils
 import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/model"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	zentaoUtils "github.com/aaronchen2k/deeptest/internal/command/utils/zentao"
+	_commonUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/common"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"github.com/fatih/color"
 	"github.com/mattn/go-runewidth"
 	"regexp"
@@ -145,11 +145,11 @@ func Brief(file string, keywords string) (bool, []string) {
 	arr := myExp.FindStringSubmatch(content)
 
 	if len(arr) > 2 {
-		title := commonUtils.RemoveBlankLine(arr[1])
-		caseId := commonUtils.RemoveBlankLine(arr[2])
+		title := _commonUtils.RemoveBlankLine(arr[1])
+		caseId := _commonUtils.RemoveBlankLine(arr[2])
 
 		//productId := commonUtils.RemoveBlankLine(arr[3])
-		steps := commonUtils.RemoveBlankLine(arr[4])
+		steps := _commonUtils.RemoveBlankLine(arr[4])
 
 		_, err := strconv.Atoi(keywords)
 		var pass bool

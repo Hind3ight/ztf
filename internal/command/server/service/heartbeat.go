@@ -6,10 +6,10 @@ import (
 	serverConst "github.com/aaronchen2k/deeptest/internal/command/server/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
-	zentaoUtils "github.com/aaronchen2k/deeptest/internal/command/utils/zentao"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 )
 
 var (

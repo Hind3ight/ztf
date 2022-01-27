@@ -6,7 +6,7 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
-	zentaoUtils "github.com/aaronchen2k/deeptest/internal/command/utils/zentao"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"github.com/emirpasic/gods/maps"
 	"github.com/emirpasic/gods/maps/linkedhashmap"
 	"regexp"

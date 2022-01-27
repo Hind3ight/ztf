@@ -50,7 +50,7 @@ var (
 	RunModeCommon  = "common"
 	RunModeServer  = "server"
 	RunModeRequest = "request"
-
+	// todo 比较pkg/lib包下的
 	LangCommentsTagMap = map[string][]string{
 		"bat":        {"goto start", ":start"},
 		"javascript": {"/\\*{1,}", "\\*{1,}/"},

@@ -5,6 +5,7 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	_commonUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/common"
 	"github.com/aaronchen2k/deeptest/res"
 	"github.com/mholt/archiver/v3"
 	"io"
@@ -21,7 +22,7 @@ import (
 func ReadFile(filePath string) string {
 	buf := ReadFileBuf(filePath)
 	str := string(buf)
-	str = commonUtils.RemoveBlankLine(str)
+	str = _commonUtils.RemoveBlankLine(str)
 	return str
 }
 

@@ -3,11 +3,11 @@ package zentaoService
 import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/zentao"
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"github.com/bitly/go-simplejson"
 	"github.com/fatih/color"
 	"os"

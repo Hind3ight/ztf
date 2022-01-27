@@ -5,11 +5,11 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	zentaoUtils "github.com/aaronchen2k/deeptest/internal/command/utils/zentao"
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"regexp"
 	"strings"
 )

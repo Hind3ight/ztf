@@ -2,8 +2,8 @@ package widget
 
 import (
 	"fmt"
-	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/awesome-gocui/gocui"
 	"strings"
 )

@@ -3,7 +3,11 @@ package i118Utils
 import (
 	"encoding/json"
 	"fmt"
+	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
+	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/res"
+	"github.com/aaronchen2k/deeptest/res"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"io/ioutil"
@@ -66,5 +70,53 @@ func Sprintf(key message.Reference, a ...interface{}) string {
 		return fmt.Sprintf("%s, %#v", key.(string), a)
 	} else {
 		return I118Prt.Sprintf(key, a...)
+	}
+}
+
+func InitI118(lang string) {
+	//var once sync.Once
+	//once.Do(func() {
+	isRelease := commonUtils.IsRelease()
+
+	var langRes string
+	if lang == constant.LanguageEN {
+		langRes = constant.EnRes
+	} else {
+		langRes = constant.ZhRes
+	}
+
+	if isRelease {
+		data, _ := res.Asset(langRes)
+		InitResFromAsset(data)
+	} else {
+		InitRes(langRes)
+	}
+
+	if lang == "zh" {
+		I118Prt = message.NewPrinter(language.SimplifiedChinese)
+	} else {
+		I118Prt = message.NewPrinter(language.AmericanEnglish)
+	}
+	//})
+}
+
+func InitRes(jsonPath string) {
+	if !fileUtils.FileExist(jsonPath) { // for debug with ide only, run unit test in another project dir
+		if commonUtils.IsWin() {
+			jsonPath = "C:\\dev\\project\\go\\ztf\\" + jsonPath
+		} else {
+			jsonPath = "/Users/aaron/rd/project/zentao/go/ztf/" + jsonPath
+		}
+	}
+
+	var i18n I18n
+	str := ReadI18nJson(jsonPath)
+	json.Unmarshal([]byte(str), &i18n)
+
+	msgArr := i18n.Messages
+	tag := language.MustParse(i18n.Language)
+
+	for _, e := range msgArr {
+		message.SetString(tag, e.Id, e.Translation)
 	}
 }

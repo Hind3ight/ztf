@@ -3,9 +3,9 @@ package serverUtils
 import (
 	"archive/zip"
 	"fmt"
-	errUtils "github.com/aaronchen2k/deeptest/internal/command/utils/err"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/command/utils/i118"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
+	errUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/err"
 	"github.com/mholt/archiver/v3"
 	"io/ioutil"
 	"net/http"

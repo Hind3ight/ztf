@@ -2,8 +2,8 @@ package scriptUtils
 
 import (
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	scriptUtils "github.com/aaronchen2k/deeptest/internal/command/utils/script"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	scriptUtils "github.com/aaronchen2k/deeptest/internal/server/modules/v1/utils/script"
 )
 
 func Sort(cases []string) {

@@ -9,9 +9,9 @@ import (
 	serverUtils "github.com/aaronchen2k/deeptest/internal/command/server/utils/common"
 	serverConst "github.com/aaronchen2k/deeptest/internal/command/server/utils/const"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 
 	"io"
 	"io/ioutil"

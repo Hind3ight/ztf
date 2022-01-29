@@ -3,8 +3,8 @@ package zentaoUtils
 import (
 	"fmt"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
 
 	"path"

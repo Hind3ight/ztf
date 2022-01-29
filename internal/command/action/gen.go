@@ -3,12 +3,12 @@ package action
 import (
 	scriptUtils "github.com/aaronchen2k/deeptest/internal/command/service/script"
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/stdin"
 	"github.com/fatih/color"
 	"os"
 )

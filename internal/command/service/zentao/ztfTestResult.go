@@ -2,8 +2,8 @@ package zentaoService
 
 import (
 	testingService "github.com/aaronchen2k/deeptest/internal/command/service/testing"
-	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/stdin"
 
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"

@@ -2,14 +2,14 @@ package action
 
 import (
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	shellUtils "github.com/aaronchen2k/deeptest/internal/command/utils/shell"
-	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	stringUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/string"
 	"path"
 	"path/filepath"
 	"strings"
@@ -53,7 +53,7 @@ func filterCases(cases []string) (casesToRun, casesToIgnore []string) {
 				ext = ext[1:]
 			}
 			lang := consts.ScriptExtToNameMap[ext]
-			interpreter := commonUtils.GetFieldVal(conf, stringUtils.Ucfirst(lang))
+			interpreter := commonUtils.GetFieldVal(conf, stringUtils.UcFirst(lang))
 			if interpreter == "-" && consts.Interpreter == "" { // not to ignore if interpreter set
 				interpreter = ""
 

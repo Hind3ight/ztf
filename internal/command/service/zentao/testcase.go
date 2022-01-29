@@ -8,8 +8,8 @@ import (
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/stdin"
 
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"

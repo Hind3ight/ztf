@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/model"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
+	stringUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/string"
 	"strings"
 )
 

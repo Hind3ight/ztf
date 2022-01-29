@@ -6,9 +6,9 @@ import (
 	"fmt"
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
+	stringUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/string"
 
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"io"
@@ -106,7 +106,7 @@ func ExecScriptFile(filePath string) (string, string) {
 				scriptInterpreter = consts.Interpreter
 				fmt.Printf("use interpreter %s for script %s\n", scriptInterpreter, filePath)
 			} else {
-				scriptInterpreter = commonUtils.GetFieldVal(consts.Config, stringUtils.Ucfirst(lang))
+				scriptInterpreter = commonUtils.GetFieldVal(consts.Config, stringUtils.UcFirst(lang))
 			}
 		}
 		if scriptInterpreter != "" {

@@ -3,22 +3,35 @@ package fileUtils
 import (
 	"archive/zip"
 	"fmt"
+	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/err"
 	"github.com/mholt/archiver/v3"
 	"strings"
 )
 
-func ZipFiles(dist string, dir string, files []string) error {
-	dir = AddPathSepIfNeeded(dir)
+//func ZipFiles(dist string, dir string, files []string) error {
+//	dir = AddPathSepIfNeeded(dir)
+//
+//	paths := make([]string, 0)
+//	for _, file := range files {
+//		path := dir + file
+//		paths = append(paths, path)
+//	}
+//
+//	zip1 := archiver.NewZip()
+//	err := zip1.Archive(paths, dist)
+//	return err
+//}
+
+func ZipFiles(dist string, dir string) error {
+	dir = RemovePathSepIfNeeded(dir)
 
 	paths := make([]string, 0)
-	for _, file := range files {
-		path := dir + file
-		paths = append(paths, path)
-	}
+	paths = append(paths, dir)
 
-	zip1 := archiver.NewZip()
-	err := zip1.Archive(paths, dist)
+	zip := archiver.NewZip()
+	err := zip.Archive(paths, dist)
+
 	return err
 }
 
@@ -48,4 +61,12 @@ func GetZipSingleDir(path string) string {
 	}
 
 	return folder
+}
+
+func BoolToPass(b bool) string {
+	if b {
+		return constant.PASS.String()
+	} else {
+		return constant.FAIL.String()
+	}
 }

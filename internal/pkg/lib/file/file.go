@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
+	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	_commonUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/common"
+	"github.com/aaronchen2k/deeptest/res"
 	"io"
 	"io/ioutil"
 	"os"
@@ -13,7 +16,9 @@ import (
 	"os/user"
 	"path"
 	"path/filepath"
+	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 )
 
@@ -105,6 +110,15 @@ func AddPathSepIfNeeded(pth string) string {
 	return pth
 }
 
+func RemovePathSepIfNeeded(pth string) string {
+	sepa := string(os.PathSeparator)
+
+	if strings.LastIndex(pth, sepa) == len(pth)-1 {
+		pth = pth[:len(pth)-1]
+	}
+	return pth
+}
+
 func GetFilesFromParams(arguments []string) []string {
 	ret := make([]string, 0)
 
@@ -125,6 +139,89 @@ func GetFilesFromParams(arguments []string) []string {
 	}
 
 	return ret
+}
+
+func ReadResData(path string) string {
+	isRelease := commonUtils.IsRelease()
+
+	var jsonStr string
+	if isRelease {
+		data, _ := res.Asset(path)
+		jsonStr = string(data)
+	} else {
+		jsonStr = ReadFile(path)
+	}
+
+	return jsonStr
+}
+
+func GetZTFDir() (dir string, isDebug bool) { // where ztf command in
+	if commonUtils.IsRelease() { // release
+		p, _ := exec.LookPath(os.Args[0])
+		if strings.Index(p, string(os.PathSeparator)) > -1 {
+			dir = p[:strings.LastIndex(p, string(os.PathSeparator))]
+		}
+	} else { // debug
+		dir, _ = os.Getwd()
+		isDebug = true
+	}
+
+	dir, _ = filepath.Abs(dir)
+	dir = AddPathSepIfNeeded(dir)
+
+	//fmt.Printf("Debug: Launch %s in %s \n", arg1, dir)
+	return
+}
+
+func GetLogDir() string {
+	path := consts.ExeDir + constant.LogDir
+	if consts.ServerWorkDir != "" {
+		path = consts.ServerWorkDir + constant.LogDir
+	}
+
+	dir, _ := ioutil.ReadDir(path)
+
+	regx := `^\d\d\d$`
+
+	numb := 0
+	for _, fi := range dir {
+		if fi.IsDir() {
+			name := fi.Name()
+			pass, _ := regexp.MatchString(regx, name)
+
+			if pass { // 999
+				name = strings.TrimLeft(name, "0")
+				nm, _ := strconv.Atoi(name)
+
+				if nm >= numb {
+					numb = nm
+				}
+			}
+		}
+	}
+
+	if numb >= 9 {
+		numb = 0
+
+		tempDir := path[:len(path)-1] + "-bak" + string(os.PathSeparator) + path[len(path):]
+		childDir := path + "bak" + string(os.PathSeparator) + path[len(path):]
+
+		os.RemoveAll(childDir)
+		os.Rename(path, tempDir)
+
+		MkDirIfNeeded(path)
+
+		err := os.Rename(tempDir, childDir)
+		_ = err
+	}
+
+	ret := getLogNumb(numb + 1)
+
+	return AddPathSepIfNeeded(path + ret)
+}
+
+func getLogNumb(numb int) string {
+	return fmt.Sprintf("%03s", strconv.Itoa(numb))
 }
 
 func CopyFile(src, dst string) (int64, error) {

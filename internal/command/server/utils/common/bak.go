@@ -3,9 +3,9 @@ package serverUtils
 import (
 	"fmt"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 
 	dateUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/date"
 	"io/ioutil"

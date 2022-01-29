@@ -2,8 +2,8 @@ package action
 
 import (
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/stdin"
 )
 
 func CommitZTFTestResult(files []string, productId string, taskId string, noNeedConfirm bool) {

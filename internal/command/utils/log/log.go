@@ -3,8 +3,8 @@ package logUtils
 import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
 	"github.com/rifflock/lfshook"

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 
 	"github.com/mattn/go-runewidth"
 	"io/ioutil"

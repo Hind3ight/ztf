@@ -3,7 +3,7 @@ package commonUtils
 import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
+	stringUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/string"
 	"github.com/emirpasic/gods/maps"
 	"net"
 	"os"
@@ -77,7 +77,7 @@ func IgnoreFile(path string) bool {
 }
 
 func GetFieldVal(config model.Config, key string) string {
-	key = stringUtils.Ucfirst(key)
+	key = stringUtils.UcFirst(key)
 
 	immutable := reflect.ValueOf(config)
 	val := immutable.FieldByName(key).String()
@@ -86,7 +86,7 @@ func GetFieldVal(config model.Config, key string) string {
 }
 
 func SetFieldVal(config *model.Config, key string, val string) string {
-	key = stringUtils.Ucfirst(key)
+	key = stringUtils.UcFirst(key)
 
 	mutable := reflect.ValueOf(config).Elem()
 	mutable.FieldByName(key).SetString(val)

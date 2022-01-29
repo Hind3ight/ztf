@@ -2,7 +2,7 @@ package serverUtils
 
 import (
 	serverModel "github.com/aaronchen2k/deeptest/internal/command/server/domain"
-	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
+	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/mholt/archiver/v3"

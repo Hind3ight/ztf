@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	"github.com/fatih/color"
 	"os"
 	"regexp"

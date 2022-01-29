@@ -3,12 +3,12 @@ package action
 import (
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	shellUtils "github.com/aaronchen2k/deeptest/internal/command/utils/shell"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/file"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
+	shellUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/shell"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/string"
 	"path"
 	"path/filepath"

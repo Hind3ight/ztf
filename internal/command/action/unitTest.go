@@ -3,7 +3,7 @@ package action
 import (
 	testingService "github.com/aaronchen2k/deeptest/internal/command/service/testing"
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
-	shellUtils "github.com/aaronchen2k/deeptest/internal/command/utils/shell"
+	shellUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/shell"
 	time2 "time"
 )
 

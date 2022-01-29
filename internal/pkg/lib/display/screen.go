@@ -2,7 +2,7 @@ package display
 
 import (
 	"github.com/aaronchen2k/deeptest/internal/command/utils/common"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/shell"
+	"github.com/aaronchen2k/deeptest/internal/pkg/lib/shell"
 	"os"
 	"os/exec"
 	"regexp"

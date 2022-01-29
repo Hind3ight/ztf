@@ -4,8 +4,8 @@ import (
 	"fmt"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
 
 	"path"
 	"path/filepath"

@@ -6,10 +6,10 @@ import (
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
 
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/display"

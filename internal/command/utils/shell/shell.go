@@ -5,10 +5,10 @@ import (
 	"bytes"
 	"fmt"
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
-	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
 
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"io"

@@ -6,7 +6,8 @@ import (
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/lang"
+	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
+
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"

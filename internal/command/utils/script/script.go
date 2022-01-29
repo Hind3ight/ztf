@@ -5,7 +5,7 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
+	langUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/lang"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"github.com/emirpasic/gods/maps"
 	"github.com/emirpasic/gods/maps/linkedhashmap"

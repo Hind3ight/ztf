@@ -6,7 +6,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"github.com/bitly/go-simplejson"
@@ -25,7 +26,7 @@ func GetBugFiledOptions(productId int) {
 
 	// $productID, $projectID = 0
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%d-0", productId)
 	} else {
 		params = fmt.Sprintf("productID=%d", productId)
@@ -59,7 +60,7 @@ func GetBugFiledOptions(productId int) {
 			logUtils.PrintToCmd(err.Error(), color.FgRed)
 		}
 
-		vari.ZenTaoBugFields = bugFields
+		consts.ZenTaoBugFields = bugFields
 	}
 }
 
@@ -77,7 +78,7 @@ func GetBugFiledOptions(productId int) {
 //		json.Unmarshal([]byte(dataStr), &moduelMap)
 //	}
 //
-//	vari.ZentaoCaseFileds.Modules = moduelMap
+//	consts.ZentaoCaseFileds.Modules = moduelMap
 //}
 
 func fieldMapToListOrderByInt(mp map[string]interface{}) []model.Option {

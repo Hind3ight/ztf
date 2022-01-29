@@ -7,7 +7,7 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	commonUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/common"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 	"io/ioutil"
@@ -22,8 +22,8 @@ func GetCaseByDirAndFile(files []string) []string {
 	cases := make([]string, 0)
 
 	for _, file := range files {
-		if !fileUtils.IsAbosutePath(file) && vari.ServerWorkDir != "" {
-			file = vari.ServerProjectDir + file
+		if !fileUtils.IsAbosutePath(file) && consts.ServerWorkDir != "" {
+			file = consts.ServerProjectDir + file
 		}
 		GetAllScriptsInDir(file, &cases)
 	}
@@ -146,8 +146,8 @@ func GetFailedCasesDirectlyFromTestResult(resultFile string) []string {
 		resultFile = strings.Replace(resultFile, extName, "."+constant.ExtNameJson, -1)
 	}
 
-	if vari.ServerProjectDir != "" {
-		resultFile = vari.ServerProjectDir + resultFile
+	if consts.ServerProjectDir != "" {
+		resultFile = consts.ServerProjectDir + resultFile
 	}
 
 	content := fileUtils.ReadFile(resultFile)
@@ -170,7 +170,7 @@ func GetScriptType(scripts []string) []string {
 		ext := path.Ext(script)
 		if ext != "" {
 			ext = ext[1:]
-			name := vari.ScriptExtToNameMap[ext]
+			name := consts.ScriptExtToNameMap[ext]
 
 			if !stringUtils.FindInArr(name, exts) {
 				exts = append(exts, name)

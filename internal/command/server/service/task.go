@@ -5,7 +5,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/server/domain"
 	serverUtils "github.com/aaronchen2k/deeptest/internal/command/server/utils/common"
 	serverConst "github.com/aaronchen2k/deeptest/internal/command/server/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"strconv"
 	"time"
 )
@@ -71,7 +72,7 @@ func (s *TaskService) ListHistory() (data []map[string]string) {
 	data = serverUtils.ListHistoryLog()
 
 	for key, item := range data {
-		data[key]["url"] = fmt.Sprintf("http://%s:%s/download?f=%s", vari.IP, strconv.Itoa(vari.Port), item["name"])
+		data[key]["url"] = fmt.Sprintf("http://%s:%s/download?f=%s", consts.IP, strconv.Itoa(consts.Port), item["name"])
 	}
 
 	return

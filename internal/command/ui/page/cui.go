@@ -1,7 +1,7 @@
 package page
 
 import (
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	"github.com/awesome-gocui/gocui"
 	"log"
 )
@@ -19,7 +19,7 @@ func CuiReportBug(dir string, id string) error {
 	g.Cursor = true
 	g.Mouse = true
 
-	vari.Cui = g
+	consts.Cui = g
 
 	InitMainPage()
 	InitReportBugPage(dir, id)

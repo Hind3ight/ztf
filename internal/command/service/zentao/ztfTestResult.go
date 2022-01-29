@@ -3,7 +3,8 @@ package zentaoService
 import (
 	testingService "github.com/aaronchen2k/deeptest/internal/command/service/testing"
 	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"strconv"
@@ -18,8 +19,8 @@ func CommitZTFTestResult(resultDir string, productId string, taskId string, noNe
 
 	report := testingService.GetZTFTestReportForSubmit(resultDir)
 
-	if vari.ProductId == "" && productId != "" {
-		vari.ProductId = productId
+	if consts.ProductId == "" && productId != "" {
+		consts.ProductId = productId
 	}
 
 	if taskId == "" && !noNeedConfirm {

@@ -4,7 +4,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
@@ -16,11 +17,11 @@ import (
 )
 
 func CommitTestResult(report model.TestReport, testTaskId int) {
-	if vari.ProductId == "" {
+	if consts.ProductId == "" {
 		if len(report.FuncResult) > 0 {
-			vari.ProductId = strconv.Itoa(report.FuncResult[0].ProductId)
+			consts.ProductId = strconv.Itoa(report.FuncResult[0].ProductId)
 		} else if len(report.UnitResult) > 0 {
-			vari.ProductId = strconv.Itoa(report.ProductId)
+			consts.ProductId = strconv.Itoa(report.ProductId)
 		}
 	}
 
@@ -28,7 +29,7 @@ func CommitTestResult(report model.TestReport, testTaskId int) {
 		logUtils.Screen(color.CyanString(i118Utils.Sprintf("ignore_to_submit_result_no_result_empty")))
 		return
 	}
-	if vari.ProductId == "" {
+	if consts.ProductId == "" {
 		logUtils.Screen(color.CyanString(i118Utils.Sprintf("ignore_to_submit_result_no_product_id")))
 		return
 	}
@@ -41,7 +42,7 @@ func CommitTestResult(report model.TestReport, testTaskId int) {
 
 	report.ZentaoData = os.Getenv("ZENTAO_DATA")
 	report.BuildUrl = os.Getenv("BUILD_URL")
-	report.ProductId, _ = strconv.Atoi(vari.ProductId)
+	report.ProductId, _ = strconv.Atoi(consts.ProductId)
 	report.TaskId = testTaskId
 
 	if len(report.FuncResult) > 0 {

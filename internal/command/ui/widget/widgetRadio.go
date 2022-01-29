@@ -2,7 +2,8 @@ package widget
 
 import (
 	"fmt"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"github.com/awesome-gocui/gocui"
 	"strings"
 )
@@ -31,12 +32,12 @@ func NewRadioWidget(name string, x, y int, checked bool) *gocui.View {
 }
 
 func (w *RadioWidget) Layout() (*gocui.View, error) {
-	v, err := vari.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+2, 0)
+	v, err := consts.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+2, 0)
 	if err != nil {
 		if !gocui.IsUnknownView(err) {
 			return nil, err
 		}
-		if err := vari.Cui.SetKeybinding(w.name, gocui.KeySpace, gocui.ModNone, w.handler); err != nil {
+		if err := consts.Cui.SetKeybinding(w.name, gocui.KeySpace, gocui.ModNone, w.handler); err != nil {
 			return nil, err
 		}
 		v.Frame = false

@@ -9,7 +9,8 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
@@ -48,7 +49,7 @@ func ListCaseByProduct(baseUrl string, productId string) []model.TestCase {
 	// $orderBy='id_desc', $recTotal=0, $recPerPage=10000, $pageID=1)
 
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%s--byModule-all-id_asc-0-10000-1", productId)
 	} else {
 		params = fmt.Sprintf("productID=%s&branch=&browseType=byModule&param=0&orderBy=id_desc&recTotal=0&recPerPage=10000", productId)
@@ -82,7 +83,7 @@ func ListCaseByModule(baseUrl string, productId string, moduleId string) []model
 	// $orderBy='id_desc', $recTotal=0, $recPerPage=10000, $pageID=1)
 
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%s--byModule-%s-id_asc-0-10000-1", productId, moduleId)
 	} else {
 		params = fmt.Sprintf("productID=%s&branch=&browseType=byModule&param=%s&orderBy=id_desc&recTotal=0&recPerPage=10000", productId, moduleId)
@@ -116,7 +117,7 @@ func ListCaseBySuite(baseUrl string, suiteId string) []model.TestCase {
 	// $suiteID, $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1
 
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%s-id_asc-0-10000-1", suiteId)
 	} else {
 		params = fmt.Sprintf("suiteID=%s&orderBy=id_desc&recTotal=0&recPerPage=10000", suiteId)
@@ -151,7 +152,7 @@ func ListCaseByTask(baseUrl string, taskId string) []model.TestCase {
 	// $orderBy = 'id_desc', $recTotal = 0, $recPerPage = 20, $pageID = 1
 
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%s-all-0-id_asc-0-10000-1", taskId)
 	} else {
 		params = fmt.Sprintf("taskID=%s&browseType=all&param=0&orderBy=id_desc&recTotal=0&recPerPage=10000", taskId)
@@ -201,7 +202,7 @@ func GetCaseById(baseUrl string, caseId string) model.TestCase {
 	// $caseID, $version = 0, $from = 'testcase', $taskID = 0
 
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%s-0-testcase-0", caseId)
 	} else {
 		params = fmt.Sprintf("caseID=%s&version=0&$from=testcase&taskID=0", caseId)
@@ -263,7 +264,7 @@ func CommitCase(caseId int, title string, stepMap maps.Map, stepTypeMap maps.Map
 
 	// $caseID, $comment = false
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%d-0", caseId)
 	} else {
 		params = fmt.Sprintf("caseID=%d&comment=0", caseId)

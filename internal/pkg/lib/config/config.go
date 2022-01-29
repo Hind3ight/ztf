@@ -9,7 +9,8 @@ import (
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stdinUtils "github.com/aaronchen2k/deeptest/internal/command/utils/stdin"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/display"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
@@ -22,33 +23,33 @@ import (
 )
 
 func InitConfig() {
-	vari.ExeDir, vari.IsDebug = fileUtils.GetZTFDir()
+	consts.ExeDir, consts.IsDebug = fileUtils.GetZTFDir()
 	CheckConfigPermission()
 
-	vari.ConfigPath = vari.ExeDir + constant.ConfigFile
-	vari.Config = getInst()
+	consts.ConfigPath = consts.ExeDir + constant.ConfigFile
+	consts.Config = getInst()
 
 	// screen size
 	InitScreenSize()
 
 	// internationalization
-	i118Utils.InitI118(vari.Config.Language)
+	i118Utils.InitI118(consts.Config.Language)
 
-	vari.ScriptExtToNameMap = langUtils.GetExtToNameMap()
+	consts.ScriptExtToNameMap = langUtils.GetExtToNameMap()
 }
 
 func InitScreenSize() {
 	w, h := display.GetScreenSize()
-	vari.ScreenWidth = w
-	vari.ScreenHeight = h
+	consts.ScreenWidth = w
+	consts.ScreenHeight = h
 }
 
 func PrintCurrConfig() {
 	logUtils.PrintToWithColor("\n"+i118Utils.Sprintf("current_config"), color.FgCyan)
 
-	val := reflect.ValueOf(vari.Config)
+	val := reflect.ValueOf(consts.Config)
 	typeOfS := val.Type()
-	for i := 0; i < reflect.ValueOf(vari.Config).NumField(); i++ {
+	for i := 0; i < reflect.ValueOf(consts.Config).NumField(); i++ {
 		if !commonUtils.IsWin() && i > 4 {
 			break
 		}
@@ -63,9 +64,9 @@ func PrintCurrConfig() {
 func ReadCurrConfig() model.Config {
 	config := model.Config{}
 
-	configPath := vari.ConfigPath
-	if vari.ServerWorkDir != "" {
-		configPath = vari.ServerWorkDir + constant.ConfigFile
+	configPath := consts.ConfigPath
+	if consts.ServerWorkDir != "" {
+		configPath = consts.ServerWorkDir + constant.ConfigFile
 	}
 
 	if !fileUtils.FileExist(configPath) {
@@ -75,16 +76,16 @@ func ReadCurrConfig() model.Config {
 		return config
 	}
 
-	ini.MapTo(&config, vari.ConfigPath)
+	ini.MapTo(&config, consts.ConfigPath)
 
 	config.Url = commonUtils.AddSlashForUrl(config.Url)
 
 	return config
 }
 func SaveConfig(conf model.Config) error {
-	configPath := vari.ConfigPath
-	if vari.ServerWorkDir != "" {
-		configPath = vari.ServerWorkDir + constant.ConfigFile
+	configPath := consts.ConfigPath
+	if consts.ServerWorkDir != "" {
+		configPath = consts.ServerWorkDir + constant.ConfigFile
 	}
 
 	fileUtils.MkDirIfNeeded(path.Dir(configPath))
@@ -103,7 +104,7 @@ func SaveConfig(conf model.Config) error {
 		logUtils.PrintToWithColor(i118Utils.Sprintf("success_update_config", configPath), color.FgCyan)
 	}
 
-	vari.Config = ReadCurrConfig()
+	consts.Config = ReadCurrConfig()
 	return nil
 }
 
@@ -113,32 +114,32 @@ func getInst() model.Config {
 		CheckConfigReady()
 	}
 
-	ini.MapTo(&vari.Config, vari.ConfigPath)
+	ini.MapTo(&consts.Config, consts.ConfigPath)
 
-	if vari.Config.Version < constant.ConfigVer { // old config file, re-init
-		if vari.Config.Language != "en" && vari.Config.Language != "zh" {
-			vari.Config.Language = "en"
+	if consts.Config.Version < constant.ConfigVer { // old config file, re-init
+		if consts.Config.Language != "en" && consts.Config.Language != "zh" {
+			consts.Config.Language = "en"
 		}
 
-		SaveConfig(vari.Config)
+		SaveConfig(consts.Config)
 	}
 
-	return vari.Config
+	return consts.Config
 }
 
 func CheckConfigPermission() {
-	//err := syscall.Access(vari.ExeDir, syscall.O_RDWR)
+	//err := syscall.Access(consts.ExeDir, syscall.O_RDWR)
 
-	err := fileUtils.MkDirIfNeeded(vari.ExeDir + "conf")
+	err := fileUtils.MkDirIfNeeded(consts.ExeDir + "conf")
 	if err != nil {
 		logUtils.PrintToWithColor(
-			i118Utils.Sprintf("perm_deny", vari.ExeDir), color.FgRed)
+			i118Utils.Sprintf("perm_deny", consts.ExeDir), color.FgRed)
 		os.Exit(0)
 	}
 }
 
 func CheckConfigReady() {
-	if !fileUtils.FileExist(vari.ConfigPath) {
+	if !fileUtils.FileExist(consts.ConfigPath) {
 		InputForSet()
 	}
 }

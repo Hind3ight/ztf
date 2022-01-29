@@ -11,7 +11,8 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -48,18 +49,18 @@ func NewServer() *Server {
 }
 
 func (s *Server) Init() {
-	vari.IP, vari.MAC = serverUtils.GetIp()
+	consts.IP, consts.MAC = serverUtils.GetIp()
 
-	vari.AgentLogDir = vari.ExeDir + serverConst.AgentLogDir + constant.PthSep
-	err := fileUtils.MkDirIfNeeded(vari.AgentLogDir)
+	consts.AgentLogDir = consts.ExeDir + serverConst.AgentLogDir + constant.PthSep
+	err := fileUtils.MkDirIfNeeded(consts.AgentLogDir)
 	if err != nil {
-		logUtils.PrintTof("mkdir %s error %s", vari.AgentLogDir, err.Error())
+		logUtils.PrintTof("mkdir %s error %s", consts.AgentLogDir, err.Error())
 	}
 }
 
 func (s *Server) Run() {
 	httpServer := &http.Server{
-		Addr:    fmt.Sprintf(":%d", vari.Port),
+		Addr:    fmt.Sprintf(":%d", consts.Port),
 		Handler: s.Handler(),
 	}
 
@@ -165,7 +166,7 @@ func (s *Server) post(req *http.Request) (resp domain.RespData, err error) {
 }
 
 func Download(w http.ResponseWriter, fi string) {
-	logDir := vari.ExeDir + "log-agent" + constant.PthSep
+	logDir := consts.ExeDir + "log-agent" + constant.PthSep
 	file, _ := os.Open(logDir + strings.Replace(fi, "-", "/", 1))
 	defer file.Close()
 

@@ -6,7 +6,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
 	testingService "github.com/aaronchen2k/deeptest/internal/command/service/testing"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
@@ -33,11 +34,11 @@ func PrepareBug(resultDir string, caseIdStr string) (model.Bug, string) {
 		GetBugFiledOptions(product)
 
 		title := cs.Title
-		module := GetFirstNoEmptyVal(vari.ZenTaoBugFields.Modules)
-		typ := GetFirstNoEmptyVal(vari.ZenTaoBugFields.Categories)
+		module := GetFirstNoEmptyVal(consts.ZenTaoBugFields.Modules)
+		typ := GetFirstNoEmptyVal(consts.ZenTaoBugFields.Categories)
 		openedBuild := map[string]string{"0": "trunk"}
-		severity := GetFirstNoEmptyVal(vari.ZenTaoBugFields.Severities)
-		priority := GetFirstNoEmptyVal(vari.ZenTaoBugFields.Priorities)
+		severity := GetFirstNoEmptyVal(consts.ZenTaoBugFields.Severities)
+		priority := GetFirstNoEmptyVal(consts.ZenTaoBugFields.Priorities)
 
 		caseId := cs.Id
 
@@ -69,8 +70,8 @@ func PrepareBug(resultDir string, caseIdStr string) (model.Bug, string) {
 }
 
 func CommitBug() (ok bool, msg string) {
-	bug := vari.CurrBug
-	stepIds := vari.CurrBugStepIds
+	bug := consts.CurrBug
+	stepIds := consts.CurrBugStepIds
 
 	conf := configUtils.ReadCurrConfig()
 	ok = Login(conf.Url, conf.Account, conf.Password)
@@ -89,7 +90,7 @@ func CommitBug() (ok bool, msg string) {
 
 	// $productID, $branch = '', $extras = ''
 	params := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		params = fmt.Sprintf("%s-0-%s", productId, extras)
 	} else {
 		params = fmt.Sprintf("productID=%s&branch=0&$extras=%s", productId, extras)

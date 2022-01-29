@@ -6,7 +6,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/ui"
 	"github.com/aaronchen2k/deeptest/internal/command/ui/widget"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/awesome-gocui/gocui"
 	"github.com/fatih/color"
@@ -18,10 +19,10 @@ var filedValMap map[string]int
 func InitReportBugPage(resultDir string, caseId string) error {
 	DestoryReportBugPage()
 
-	vari.CurrBug, vari.CurrBugStepIds = zentaoService.PrepareBug(resultDir, caseId)
-	bug := vari.CurrBug
+	consts.CurrBug, consts.CurrBugStepIds = zentaoService.PrepareBug(resultDir, caseId)
+	bug := consts.CurrBug
 
-	w, h := vari.Cui.Size()
+	w, h := consts.Cui.Size()
 	x := 1
 	y := 1
 
@@ -49,7 +50,7 @@ func InitReportBugPage(resultDir string, caseId string) error {
 	right = left + widget.SelectWidth
 	moduleInput := widget.NewSelectWidgetWithDefault("module", left, y, widget.SelectWidth, 6,
 		i118Utils.Sprintf("module"),
-		vari.ZenTaoBugFields.Modules, zentaoService.GetNameById(bug.Module, vari.ZenTaoBugFields.Modules),
+		consts.ZenTaoBugFields.Modules, zentaoService.GetNameById(bug.Module, consts.ZenTaoBugFields.Modules),
 		bugSelectFieldCheckEvent())
 	ui.ViewMap["reportBug"] = append(ui.ViewMap["reportBug"], moduleInput.Name())
 
@@ -58,7 +59,7 @@ func InitReportBugPage(resultDir string, caseId string) error {
 	right = left + widget.SelectWidth
 	typeInput := widget.NewSelectWidgetWithDefault("type", left, y, widget.SelectWidth, 6,
 		i118Utils.Sprintf("category"),
-		vari.ZenTaoBugFields.Categories, zentaoService.GetNameById(bug.Type, vari.ZenTaoBugFields.Categories),
+		consts.ZenTaoBugFields.Categories, zentaoService.GetNameById(bug.Type, consts.ZenTaoBugFields.Categories),
 		bugSelectFieldCheckEvent())
 	ui.ViewMap["reportBug"] = append(ui.ViewMap["reportBug"], typeInput.Name())
 
@@ -67,7 +68,7 @@ func InitReportBugPage(resultDir string, caseId string) error {
 	right = left + widget.SelectWidth
 	versionInput := widget.NewSelectWidgetWithDefault("version", left, y, widget.SelectWidth, 6,
 		i118Utils.Sprintf("version"),
-		vari.ZenTaoBugFields.Versions, zentaoService.GetNameById(bugVersion, vari.ZenTaoBugFields.Versions),
+		consts.ZenTaoBugFields.Versions, zentaoService.GetNameById(bugVersion, consts.ZenTaoBugFields.Versions),
 		bugSelectFieldCheckEvent())
 	ui.ViewMap["reportBug"] = append(ui.ViewMap["reportBug"], versionInput.Name())
 
@@ -77,7 +78,7 @@ func InitReportBugPage(resultDir string, caseId string) error {
 	right = left + widget.SelectWidth
 	severityInput := widget.NewSelectWidgetWithDefault("severity", left, y, widget.SelectWidth, 6,
 		i118Utils.Sprintf("severity"),
-		vari.ZenTaoBugFields.Severities, zentaoService.GetNameById(bug.Severity, vari.ZenTaoBugFields.Severities),
+		consts.ZenTaoBugFields.Severities, zentaoService.GetNameById(bug.Severity, consts.ZenTaoBugFields.Severities),
 		bugSelectFieldCheckEvent())
 	ui.ViewMap["reportBug"] = append(ui.ViewMap["reportBug"], severityInput.Name())
 
@@ -86,7 +87,7 @@ func InitReportBugPage(resultDir string, caseId string) error {
 	right = left + widget.SelectWidth
 	priorityInput := widget.NewSelectWidgetWithDefault("priority", left, y, widget.SelectWidth, 6,
 		i118Utils.Sprintf("priority"),
-		vari.ZenTaoBugFields.Priorities, zentaoService.GetNameById(bug.Pri, vari.ZenTaoBugFields.Priorities),
+		consts.ZenTaoBugFields.Priorities, zentaoService.GetNameById(bug.Pri, consts.ZenTaoBugFields.Priorities),
 		bugSelectFieldCheckEvent())
 	ui.ViewMap["reportBug"] = append(ui.ViewMap["reportBug"], priorityInput.Name())
 
@@ -110,13 +111,13 @@ func InitReportBugPage(resultDir string, caseId string) error {
 
 	ui.BindEventForInputWidgets(ui.ViewMap["reportBug"])
 
-	vari.Cui.SetCurrentView("titleInput")
+	consts.Cui.SetCurrentView("titleInput")
 
 	return nil
 }
 
 func reportBug(g *gocui.Gui, v *gocui.View) error {
-	bug := vari.CurrBug
+	bug := consts.CurrBug
 
 	titleView, _ := g.View("titleInput")
 	stepsView, _ := g.View("stepsInput")
@@ -136,7 +137,7 @@ func reportBug(g *gocui.Gui, v *gocui.View) error {
 	priorityStr := strings.TrimSpace(ui.GetSelectedRowVal(priorityView))
 
 	if title == "" {
-		v, _ := vari.Cui.View("reportBugMsg")
+		v, _ := consts.Cui.View("reportBugMsg")
 		color.New(color.FgMagenta).Fprintf(v, i118Utils.ReadI18nJson("title_cannot_be_empty"))
 		return nil
 	}
@@ -144,11 +145,11 @@ func reportBug(g *gocui.Gui, v *gocui.View) error {
 	bug.Title = title
 	bug.Steps = strings.Replace(stepsStr, "\n", "<br/>", -1)
 
-	bug.Type = zentaoService.GetIdByName(typeStr, vari.ZenTaoBugFields.Categories)
+	bug.Type = zentaoService.GetIdByName(typeStr, consts.ZenTaoBugFields.Categories)
 
-	bug.Module = zentaoService.GetIdByName(moduleStr, vari.ZenTaoBugFields.Modules)
+	bug.Module = zentaoService.GetIdByName(moduleStr, consts.ZenTaoBugFields.Modules)
 
-	versionKey := zentaoService.GetIdByName(versionStr, vari.ZenTaoBugFields.Versions)
+	versionKey := zentaoService.GetIdByName(versionStr, consts.ZenTaoBugFields.Versions)
 	build := make(map[string]string)
 	if versionKey == "trunk" {
 		build["0"] = "trunk"
@@ -157,21 +158,21 @@ func reportBug(g *gocui.Gui, v *gocui.View) error {
 	}
 	bug.OpenedBuild = build
 
-	bug.Severity = zentaoService.GetIdByName(severityStr, vari.ZenTaoBugFields.Severities)
-	bug.Pri = zentaoService.GetIdByName(priorityStr, vari.ZenTaoBugFields.Priorities)
+	bug.Severity = zentaoService.GetIdByName(severityStr, consts.ZenTaoBugFields.Severities)
+	bug.Pri = zentaoService.GetIdByName(priorityStr, consts.ZenTaoBugFields.Priorities)
 
-	vari.CurrBug = bug
+	consts.CurrBug = bug
 	ok, msg := zentaoService.CommitBug()
 
-	msgView, _ := vari.Cui.View("reportBugMsg")
+	msgView, _ := consts.Cui.View("reportBugMsg")
 	msgView.Clear()
 
 	if ok {
 		color.New(color.FgGreen).Fprintf(msgView, msg)
 
-		vari.Cui.DeleteView("submitInput")
+		consts.Cui.DeleteView("submitInput")
 
-		cancelReportBugInput, _ := vari.Cui.View("cancelReportBugInput")
+		cancelReportBugInput, _ := consts.Cui.View("cancelReportBugInput")
 		cancelReportBugInput.Clear()
 		fmt.Fprint(cancelReportBugInput, " "+i118Utils.Sprintf("close"))
 	} else {
@@ -201,7 +202,7 @@ func cancelReportBug(g *gocui.Gui, v *gocui.View) error {
 
 func DestoryReportBugPage() {
 	for _, v := range ui.ViewMap["reportBug"] {
-		vari.Cui.DeleteView(v)
-		vari.Cui.DeleteKeybindings(v)
+		consts.Cui.DeleteView(v)
+		consts.Cui.DeleteKeybindings(v)
 	}
 }

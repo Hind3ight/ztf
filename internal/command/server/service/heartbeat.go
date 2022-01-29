@@ -7,7 +7,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
 	zentaoService "github.com/aaronchen2k/deeptest/internal/command/service/zentao"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/zentao"
 )
@@ -29,10 +30,10 @@ func (s *HeartBeatService) HeartBeat(isBusy bool) {
 	}
 
 	// send request
-	zentaoService.GetConfig(vari.Config.Url)
+	zentaoService.GetConfig(consts.Config.Url)
 
-	url := vari.Config.Url + zentaoUtils.GenApiUri("agent", "heartbeat", "")
-	data := map[string]interface{}{"type": vari.Platform, "sys": sysInfo}
+	url := consts.Config.Url + zentaoUtils.GenApiUri("agent", "heartbeat", "")
+	data := map[string]interface{}{"type": consts.Platform, "sys": sysInfo}
 
 	status := serverConst.VmActive
 	if isBusy {

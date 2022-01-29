@@ -7,7 +7,8 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"strings"
 )
 
@@ -19,9 +20,9 @@ func NewExecService() *ExecService {
 }
 
 func (s *ExecService) Exec(build domain.Build) (reply domain.OptResult) {
-	serverVerbose := vari.Verbose
-	vari.Verbose = build.Debug
-	vari.RunMode = constant.RunModeRequest
+	serverVerbose := consts.Verbose
+	consts.Verbose = build.Debug
+	consts.RunMode = constant.RunModeRequest
 	defer rollback(serverVerbose)
 
 	s.prepareCodes(&build)
@@ -29,18 +30,18 @@ func (s *ExecService) Exec(build domain.Build) (reply domain.OptResult) {
 
 	resultDir := ""
 	if stringUtils.FindInArr(build.UnitTestType, constant.UnitTestTypes) { // unit test
-		vari.ProductId = build.ProductId
+		consts.ProductId = build.ProductId
 
-		vari.UnitTestType = build.UnitTestType
-		vari.UnitTestTool = build.UnitTestTool
+		consts.UnitTestType = build.UnitTestType
+		consts.UnitTestTool = build.UnitTestTool
 
 		resultDir = action.RunUnitTest(build.UnitTestCmd)
 
 	} else { // ztf functional test
-		vari.ProductId = build.ProductId
+		consts.ProductId = build.ProductId
 
 		action.RunZTFTest(build.Files, build.SuiteId, build.TaskId)
-		resultDir = vari.LogDir
+		resultDir = consts.LogDir
 	}
 
 	serverUtils.BakLog(resultDir)
@@ -67,27 +68,27 @@ func (s *ExecService) prepareCodes(build *domain.Build) {
 }
 
 func (s *ExecService) prepareDir(build *domain.Build) {
-	vari.ServerWorkDir = build.WorkDir
-	vari.ServerProjectDir = build.ProjectDir
+	consts.ServerWorkDir = build.WorkDir
+	consts.ServerProjectDir = build.ProjectDir
 
-	if vari.ServerProjectDir == "" && vari.ServerWorkDir != "" {
-		vari.ServerProjectDir = vari.ServerWorkDir
-	} else if vari.ServerProjectDir != "" && vari.ServerWorkDir == "" {
-		vari.ServerWorkDir = vari.ServerProjectDir
-	} else if vari.ServerProjectDir == "" && vari.ServerWorkDir == "" {
-		vari.ServerWorkDir = fileUtils.AbsolutePath(".")
-		vari.ServerProjectDir = vari.ServerWorkDir
+	if consts.ServerProjectDir == "" && consts.ServerWorkDir != "" {
+		consts.ServerProjectDir = consts.ServerWorkDir
+	} else if consts.ServerProjectDir != "" && consts.ServerWorkDir == "" {
+		consts.ServerWorkDir = consts.ServerProjectDir
+	} else if consts.ServerProjectDir == "" && consts.ServerWorkDir == "" {
+		consts.ServerWorkDir = fileUtils.AbsolutePath(".")
+		consts.ServerProjectDir = consts.ServerWorkDir
 	}
 
-	if vari.ServerWorkDir != "" {
-		vari.ServerWorkDir = fileUtils.AddPathSepIfNeeded(vari.ServerWorkDir)
+	if consts.ServerWorkDir != "" {
+		consts.ServerWorkDir = fileUtils.AddPathSepIfNeeded(consts.ServerWorkDir)
 	}
-	if vari.ServerProjectDir != "" {
-		vari.ServerProjectDir = fileUtils.AddPathSepIfNeeded(vari.ServerProjectDir)
+	if consts.ServerProjectDir != "" {
+		consts.ServerProjectDir = fileUtils.AddPathSepIfNeeded(consts.ServerProjectDir)
 	}
 }
 
 func rollback(serverVerbose bool) {
-	vari.Verbose = serverVerbose
-	vari.RunMode = constant.RunModeCommon
+	consts.Verbose = serverVerbose
+	consts.RunMode = constant.RunModeCommon
 }

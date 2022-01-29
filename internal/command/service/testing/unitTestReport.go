@@ -8,7 +8,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
 	"strconv"
@@ -20,7 +21,7 @@ func GenUnitTestReport(cases []model.UnitResult, classNameMaxWidth int, timeVal 
 	logUtils.InitLogger()
 	report := model.TestReport{Env: commonUtils.GetOs(), Pass: 0, Fail: 0, Total: 0}
 	report.TestType = "unit"
-	report.TestFrame = vari.UnitTestType
+	report.TestFrame = consts.UnitTestType
 
 	failedCount := 0
 	failedCaseLines := make([]string, 0)
@@ -94,7 +95,7 @@ func GenUnitTestReport(cases []model.UnitResult, classNameMaxWidth int, timeVal 
 	}
 
 	secTag := ""
-	if vari.Config.Language == "en" && report.Duration > 1 {
+	if consts.Config.Language == "en" && report.Duration > 1 {
 		secTag = "s"
 	}
 
@@ -108,7 +109,7 @@ func GenUnitTestReport(cases []model.UnitResult, classNameMaxWidth int, timeVal 
 		i118Utils.Sprintf("run_scripts",
 			report.Total, report.Duration, secTag,
 			passStr, failStr, skipStr,
-			" "+vari.LogDir+"result.txt ",
+			" "+consts.LogDir+"result.txt ",
 		))
 
 	// 输出到屏幕
@@ -116,11 +117,11 @@ func GenUnitTestReport(cases []model.UnitResult, classNameMaxWidth int, timeVal 
 		i118Utils.Sprintf("run_scripts",
 			report.Total, report.Duration, secTag,
 			color.GreenString(passStr), color.RedString(failStr), color.YellowString(skipStr),
-			" "+vari.LogDir+"result.txt ",
+			" "+consts.LogDir+"result.txt ",
 		))
 
 	json, _ := json.Marshal(report)
-	fileUtils.WriteFile(vari.LogDir+"result.json", string(json))
+	fileUtils.WriteFile(consts.LogDir+"result.json", string(json))
 
 	return report
 }

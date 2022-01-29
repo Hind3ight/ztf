@@ -7,7 +7,8 @@ import (
 	commonUtils "github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
 	"github.com/mattn/go-runewidth"
@@ -83,7 +84,7 @@ func GenZTFTestReport(report model.TestReport, pathMaxWidth int) {
 	}
 
 	secTag := ""
-	if vari.Config.Language == "en" && report.Duration > 1 {
+	if consts.Config.Language == "en" && report.Duration > 1 {
 		secTag = "s"
 	}
 
@@ -98,18 +99,18 @@ func GenZTFTestReport(report model.TestReport, pathMaxWidth int) {
 		i118Utils.Sprintf("run_scripts",
 			report.Total, report.Duration, secTag,
 			passStr, failStr, skipStr,
-			" "+vari.LogDir+"result.txt ",
+			" "+consts.LogDir+"result.txt ",
 		))
 	// 打印到屏幕
 	logUtils.Screen("\n" + time.Now().Format("2006-01-02 15:04:05") + " " +
 		i118Utils.Sprintf("run_scripts",
 			report.Total, report.Duration, secTag,
 			color.GreenString(passStr), color.RedString(failStr), color.YellowString(skipStr),
-			" "+vari.LogDir+"result.txt ",
+			" "+consts.LogDir+"result.txt ",
 		))
 
-	//println("===" + vari.LogDir)
-	report.ProductId, _ = strconv.Atoi(vari.ProductId)
+	//println("===" + consts.LogDir)
+	report.ProductId, _ = strconv.Atoi(consts.ProductId)
 	json, _ := json.Marshal(report)
-	fileUtils.WriteFile(vari.LogDir+"result.json", string(json))
+	fileUtils.WriteFile(consts.LogDir+"result.json", string(json))
 }

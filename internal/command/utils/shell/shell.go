@@ -8,7 +8,8 @@ import (
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"io"
 	"os"
@@ -59,8 +60,8 @@ func ExeAppWithOutput(cmdStr string) []string {
 		cmd = exec.Command("/bin/bash", "-c", cmdStr)
 	}
 
-	if vari.ServerProjectDir != "" {
-		cmd.Dir = vari.ServerProjectDir
+	if consts.ServerProjectDir != "" {
+		cmd.Dir = consts.ServerProjectDir
 	}
 
 	output := make([]string, 0)
@@ -101,11 +102,11 @@ func ExecScriptFile(filePath string) (string, string) {
 
 		scriptInterpreter := ""
 		if strings.ToLower(lang) != "bat" {
-			if vari.Interpreter != "" {
-				scriptInterpreter = vari.Interpreter
+			if consts.Interpreter != "" {
+				scriptInterpreter = consts.Interpreter
 				fmt.Printf("use interpreter %s for script %s\n", scriptInterpreter, filePath)
 			} else {
-				scriptInterpreter = commonUtils.GetFieldVal(vari.Config, stringUtils.Ucfirst(lang))
+				scriptInterpreter = commonUtils.GetFieldVal(consts.Config, stringUtils.Ucfirst(lang))
 			}
 		}
 		if scriptInterpreter != "" {
@@ -130,8 +131,8 @@ func ExecScriptFile(filePath string) (string, string) {
 		cmd = exec.Command("/bin/bash", "-c", filePath)
 	}
 
-	if vari.ServerWorkDir != "" {
-		cmd.Dir = vari.ServerWorkDir
+	if consts.ServerWorkDir != "" {
+		cmd.Dir = consts.ServerWorkDir
 	}
 
 	if cmd == nil {

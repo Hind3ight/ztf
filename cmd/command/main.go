@@ -10,7 +10,8 @@ import (
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
@@ -48,8 +49,8 @@ func main() {
 
 	flagSet = flag.NewFlagSet("ztf", flag.ContinueOnError)
 
-	flagSet.StringVar(&vari.Interpreter, "interp", "", "")
-	flagSet.StringVar(&vari.Interpreter, "interpreter", "", "")
+	flagSet.StringVar(&consts.Interpreter, "interp", "", "")
+	flagSet.StringVar(&consts.Interpreter, "interpreter", "", "")
 
 	flagSet.StringVar(&productId, "p", "", "")
 	flagSet.StringVar(&productId, "product", "", "")
@@ -73,18 +74,18 @@ func main() {
 	flagSet.StringVar(&keywords, "keywords", "", "")
 
 	flagSet.BoolVar(&noNeedConfirm, "y", false, "")
-	flagSet.BoolVar(&vari.Verbose, "verbose", false, "")
+	flagSet.BoolVar(&consts.Verbose, "verbose", false, "")
 
-	flagSet.IntVar(&vari.Port, "P", 0, "")
-	flagSet.IntVar(&vari.Port, "port", 0, "")
-	flagSet.StringVar(&vari.Platform, "M", string(serverConst.Vm), "")
+	flagSet.IntVar(&consts.Port, "P", 0, "")
+	flagSet.IntVar(&consts.Port, "port", 0, "")
+	flagSet.StringVar(&consts.Platform, "M", string(serverConst.Vm), "")
 
 	var placeholder string
 	flagSet.StringVar(&placeholder, "h", "", "")
 	flagSet.StringVar(&placeholder, "r", "", "")
 	flagSet.StringVar(&placeholder, "v", "", "")
 
-	flagSet.StringVar(&vari.UnitTestResult, "result", "", "")
+	flagSet.StringVar(&consts.UnitTestResult, "result", "", "")
 
 	flagSet.StringVar(&debug, "debug", "", "")
 
@@ -162,8 +163,8 @@ func main() {
 
 	default: // run
 		flagSet.Parse(os.Args[1:])
-		if vari.Port != 0 {
-			vari.RunMode = constant.RunModeServer
+		if consts.Port != 0 {
+			consts.RunMode = constant.RunModeServer
 			startServer()
 
 			return
@@ -183,7 +184,7 @@ func main() {
 func run(args []string) {
 	if len(args) >= 3 && stringUtils.FindInArr(args[2], constant.UnitTestTypes) { // unit test
 		// junit -p 1 mvn clean package test
-		vari.UnitTestType = args[2]
+		consts.UnitTestType = args[2]
 		end := 8
 		if end > len(args)-1 {
 			end = len(args) - 1
@@ -191,23 +192,23 @@ func run(args []string) {
 		flagSet.Parse(args[3:])
 
 		start := 3
-		if vari.UnitTestResult != "" {
+		if consts.UnitTestResult != "" {
 			start = start + 2
 		} else {
-			vari.UnitTestResult = "./"
+			consts.UnitTestResult = "./"
 		}
 		if productId != "" {
 			start = start + 2
-			vari.ProductId = productId
+			consts.ProductId = productId
 		}
-		if vari.Verbose {
+		if consts.Verbose {
 			start = start + 1
 		}
 
 		if args[start] == constant.UnitTestToolMvn {
-			vari.UnitTestTool = constant.UnitTestToolMvn
+			consts.UnitTestTool = constant.UnitTestToolMvn
 		} else if args[start] == constant.UnitTestToolRobot {
-			vari.UnitTestTool = constant.UnitTestToolRobot
+			consts.UnitTestTool = constant.UnitTestToolRobot
 		}
 
 		cmd := strings.Join(args[start:], " ")
@@ -218,14 +219,14 @@ func run(args []string) {
 
 		err := flagSet.Parse(args[len(files)+2:])
 		if err == nil {
-			vari.ProductId = productId
+			consts.ProductId = productId
 
 			if len(files) == 0 {
 				files = append(files, ".")
 			}
 
-			if vari.Interpreter != "" {
-				logUtils.PrintToWithColor(i118Utils.Sprintf("run_with_specific_interpreter", vari.Interpreter), color.FgCyan)
+			if consts.Interpreter != "" {
+				logUtils.PrintToWithColor(i118Utils.Sprintf("run_with_specific_interpreter", consts.Interpreter), color.FgCyan)
 			}
 			action.RunZTFTest(files, suiteId, taskId)
 		} else {
@@ -235,8 +236,8 @@ func run(args []string) {
 }
 
 func startServer() {
-	vari.IP = commonUtils.GetIp()
-	logUtils.PrintToWithColor(i118Utils.Sprintf("start_server", vari.IP, strconv.Itoa(vari.Port)), color.FgCyan)
+	consts.IP = commonUtils.GetIp()
+	logUtils.PrintToWithColor(i118Utils.Sprintf("start_server", consts.IP, strconv.Itoa(consts.Port)), color.FgCyan)
 
 	server := server.NewServer()
 	server.Init()

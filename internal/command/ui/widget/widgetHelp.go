@@ -2,7 +2,8 @@ package widget
 
 import (
 	"fmt"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/awesome-gocui/gocui"
 	"strings"
@@ -22,7 +23,7 @@ type HelpWidget struct {
 func NewHelpWidget() {
 	initContent()
 
-	maxX, _ := vari.Cui.Size()
+	maxX, _ := consts.Cui.Size()
 
 	lines := strings.Split(HelpGlobal, "\n")
 
@@ -35,12 +36,12 @@ func NewHelpWidget() {
 	h := len(lines)
 	w = w + 2
 
-	help := HelpWidget{name: "help", x: maxX - w - 3, y: vari.MainViewHeight, w: w, h: h, body: HelpGlobal}
+	help := HelpWidget{name: "help", x: maxX - w - 3, y: consts.MainViewHeight, w: w, h: h, body: HelpGlobal}
 	help.Layout()
 }
 
 func (w *HelpWidget) Layout() error {
-	v, err := vari.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+w.h, 0)
+	v, err := consts.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+w.h, 0)
 	if err != nil {
 		if !gocui.IsUnknownView(err) {
 			return err
@@ -54,7 +55,7 @@ func ShowHelpFromView(g *gocui.Gui, v *gocui.View) error {
 	return ShowHelp()
 }
 func ShowHelp() error {
-	help, _ := vari.Cui.View("help")
+	help, _ := consts.Cui.View("help")
 
 	if help != nil {
 		HideHelp()
@@ -66,10 +67,10 @@ func ShowHelp() error {
 }
 
 func HideHelp() error {
-	help, _ := vari.Cui.View("help")
+	help, _ := consts.Cui.View("help")
 
 	if help != nil {
-		if err := vari.Cui.DeleteView("help"); err != nil {
+		if err := consts.Cui.DeleteView("help"); err != nil {
 			return err
 		}
 	}

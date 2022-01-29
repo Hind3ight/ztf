@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/file"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
 	"github.com/rifflock/lfshook"
@@ -17,11 +17,11 @@ import (
 var Logger *logrus.Logger
 
 func GetWholeLine(msg string, char string) string {
-	prefixLen := (vari.ScreenWidth - utf8.RuneCountInString(msg) - 2) / 2
+	prefixLen := (consts.ScreenWidth - utf8.RuneCountInString(msg) - 2) / 2
 	if prefixLen <= 0 { // no width in debug mode
 		prefixLen = 6
 	}
-	postfixLen := vari.ScreenWidth - utf8.RuneCountInString(msg) - 2 - prefixLen - 1
+	postfixLen := consts.ScreenWidth - utf8.RuneCountInString(msg) - 2 - prefixLen - 1
 	if postfixLen <= 0 { // no width in debug mode
 		postfixLen = 6
 	}
@@ -48,9 +48,9 @@ func ColoredStatus(status string) string {
 }
 
 func InitLogger() *logrus.Logger {
-	vari.LogDir = fileUtils.GetLogDir()
+	consts.LogDir = fileUtils.GetLogDir()
 
-	if Logger != nil && vari.RunMode != constant.RunModeRequest {
+	if Logger != nil && consts.RunMode != constant.RunModeRequest {
 		return Logger
 	}
 
@@ -58,10 +58,10 @@ func InitLogger() *logrus.Logger {
 	Logger.Out = ioutil.Discard
 
 	pathMap := lfshook.PathMap{
-		logrus.InfoLevel: vari.LogDir + "log.txt",
-		logrus.WarnLevel: vari.LogDir + "result.txt",
+		logrus.InfoLevel: consts.LogDir + "log.txt",
+		logrus.WarnLevel: consts.LogDir + "result.txt",
 
-		logrus.ErrorLevel: vari.LogDir + "err.txt",
+		logrus.ErrorLevel: consts.LogDir + "err.txt",
 	}
 
 	Logger.Hooks.Add(lfshook.NewHook(

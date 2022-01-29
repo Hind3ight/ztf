@@ -4,7 +4,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/service/client"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/bitly/go-simplejson"
 	"github.com/fatih/color"
@@ -20,7 +21,7 @@ func Login(baseUrl string, account string, password string) bool {
 	}
 
 	uri := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		uri = "user-login.json"
 	} else {
 		uri = "index.php?m=user&f=login&t=json"
@@ -37,7 +38,7 @@ func Login(baseUrl string, account string, password string) bool {
 		_, ok = client.PostObject(url, params, true)
 	}
 	if ok {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.Screen(i118Utils.Sprintf("success_to_login"))
 		}
 	} else {
@@ -48,7 +49,7 @@ func Login(baseUrl string, account string, password string) bool {
 }
 
 func GetConfig(baseUrl string) bool {
-	if vari.RequestType != "" {
+	if consts.RequestType != "" {
 		return true
 	}
 
@@ -60,15 +61,15 @@ func GetConfig(baseUrl string) bool {
 	}
 
 	json, _ := simplejson.NewJson([]byte(body))
-	vari.ZenTaoVersion, _ = json.Get("version").String()
-	vari.SessionId, _ = json.Get("sessionID").String()
-	vari.SessionVar, _ = json.Get("sessionVar").String()
-	vari.RequestType, _ = json.Get("requestType").String()
-	vari.RequestFix, _ = json.Get("requestFix").String()
+	consts.ZenTaoVersion, _ = json.Get("version").String()
+	consts.SessionId, _ = json.Get("sessionID").String()
+	consts.SessionVar, _ = json.Get("sessionVar").String()
+	consts.RequestType, _ = json.Get("requestType").String()
+	consts.RequestFix, _ = json.Get("requestFix").String()
 
 	// check site path by calling login interface
 	uri := ""
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		uri = "user-login.json"
 	} else {
 		uri = "index.php?m=user&f=login&t=json"

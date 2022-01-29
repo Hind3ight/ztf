@@ -5,7 +5,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	"github.com/aaronchen2k/deeptest/internal/command/ui"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"github.com/awesome-gocui/gocui"
 	"strings"
 )
@@ -46,7 +47,7 @@ func (w *SelectWidget) Layout() (*gocui.View, error) {
 		w.h = 3
 	}
 
-	v, _ := vari.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+w.h, 0)
+	v, _ := consts.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+w.h, 0)
 	v.Highlight = true
 	ui.SupportScroll(w.name)
 	ui.SupportRowHighlight(w.name)
@@ -89,10 +90,10 @@ func (w *SelectWidget) Layout() (*gocui.View, error) {
 		}
 	}
 
-	if err := vari.Cui.SetKeybinding(w.name, gocui.KeyEnter, gocui.ModNone, w.checkHandler); err != nil {
+	if err := consts.Cui.SetKeybinding(w.name, gocui.KeyEnter, gocui.ModNone, w.checkHandler); err != nil {
 		return nil, err
 	}
-	if err := vari.Cui.SetKeybinding(w.name, gocui.MouseLeft, gocui.ModNone, w.checkHandler); err != nil {
+	if err := consts.Cui.SetKeybinding(w.name, gocui.MouseLeft, gocui.ModNone, w.checkHandler); err != nil {
 		return nil, err
 	}
 

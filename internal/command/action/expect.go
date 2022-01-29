@@ -6,7 +6,7 @@ import (
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	shellUtils "github.com/aaronchen2k/deeptest/internal/command/utils/shell"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
@@ -52,9 +52,9 @@ func filterCases(cases []string) (casesToRun, casesToIgnore []string) {
 			if ext != "" {
 				ext = ext[1:]
 			}
-			lang := vari.ScriptExtToNameMap[ext]
+			lang := consts.ScriptExtToNameMap[ext]
 			interpreter := commonUtils.GetFieldVal(conf, stringUtils.Ucfirst(lang))
-			if interpreter == "-" && vari.Interpreter == "" { // not to ignore if interpreter set
+			if interpreter == "-" && consts.Interpreter == "" { // not to ignore if interpreter set
 				interpreter = ""
 
 				casesToIgnore = append(casesToIgnore, cs)

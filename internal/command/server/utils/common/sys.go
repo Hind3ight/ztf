@@ -5,7 +5,8 @@ import (
 	"errors"
 	serverModel "github.com/aaronchen2k/deeptest/internal/command/server/domain"
 	serverConst "github.com/aaronchen2k/deeptest/internal/command/server/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"net"
 	"os"
 	"os/exec"
@@ -15,7 +16,7 @@ import (
 )
 
 func GetSysInfo() (info serverModel.SysInfo) {
-	info.AgentDir = vari.ExeDir
+	info.AgentDir = consts.ExeDir
 
 	info.SysArch = runtime.GOARCH
 	info.SysCores = runtime.GOMAXPROCS(0)
@@ -30,8 +31,8 @@ func GetSysInfo() (info serverModel.SysInfo) {
 		}
 	}
 
-	info.IP = vari.IP
-	info.MAC = vari.MAC
+	info.IP = consts.IP
+	info.MAC = consts.MAC
 
 	//jsonStr, _ := json.Marshal(info)
 	//logUtils.PrintTo(string(jsonStr))
@@ -92,10 +93,10 @@ func homeWindows() (string, error) {
 }
 
 func IsHostAgent() bool {
-	return vari.Platform == string(serverConst.Host)
+	return consts.Platform == string(serverConst.Host)
 }
 func IsVmAgent() bool {
-	return vari.Platform == string(serverConst.Vm)
+	return consts.Platform == string(serverConst.Vm)
 }
 
 func GetIp() (ipAddr string, macAddr string) {

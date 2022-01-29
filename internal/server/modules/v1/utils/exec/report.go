@@ -126,7 +126,7 @@ func GenZTFTestReport(report commDomain.ZtfReport, pathMaxWidth int,
 	logUtils.ExecConsole(color.FgCyan, msg)
 	logUtils.ExecResult(msg)
 
-	//report.ProductId, _ = strconv.Atoi(vari.ProductId)
+	//report.ProductId, _ = strconv.Atoi(consts.ProductId)
 	json, _ := json.MarshalIndent(report, "", "\t")
 	jsonPath := filepath.Join(commConsts.ExecLogDir, commConsts.ResultJson)
 	fileUtils.WriteFile(jsonPath, string(json))

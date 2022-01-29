@@ -3,7 +3,7 @@ package langUtils
 import (
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
 	stringUtils "github.com/aaronchen2k/deeptest/internal/command/utils/string"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/fatih/color"
 	"path"
@@ -164,7 +164,7 @@ func GetLangByFile(filePath string) string {
 	ext := path.Ext(filePath)
 	ext = ext[1:]
 
-	lang := vari.ScriptExtToNameMap[ext]
+	lang := consts.ScriptExtToNameMap[ext]
 
 	return lang
 }

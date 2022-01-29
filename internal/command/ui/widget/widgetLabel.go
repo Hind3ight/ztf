@@ -2,7 +2,8 @@ package widget
 
 import (
 	"fmt"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"github.com/awesome-gocui/gocui"
 )
 
@@ -36,7 +37,7 @@ func NewLabelWidgetAutoWidth(name string, x, y int, label string) *gocui.View {
 }
 
 func (w *LabelWidget) Layout() (*gocui.View, error) {
-	v, err := vari.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+LabelHeight, 0)
+	v, err := consts.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+LabelHeight, 0)
 	if err != nil {
 		if !gocui.IsUnknownView(err) {
 			return nil, err

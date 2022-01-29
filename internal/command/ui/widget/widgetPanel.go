@@ -2,7 +2,8 @@ package widget
 
 import (
 	"fmt"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"github.com/awesome-gocui/gocui"
 )
 
@@ -26,7 +27,7 @@ func (w *PanelWidget) Layout() (*gocui.View, error) {
 		w.h = 3
 	}
 
-	v, err := vari.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+w.h, 0)
+	v, err := consts.Cui.SetView(w.name, w.x, w.y, w.x+w.w, w.y+w.h, 0)
 	v.Highlight = false
 	if err != nil {
 		if !gocui.IsUnknownView(err) {

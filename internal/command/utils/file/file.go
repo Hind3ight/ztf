@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/common"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/const"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	_commonUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/common"
 	"github.com/aaronchen2k/deeptest/res"
 	"github.com/mholt/archiver/v3"
@@ -170,9 +170,9 @@ func GetZTFDir() (dir string, isDebug bool) { // where ztf command in
 }
 
 func GetLogDir() string {
-	path := vari.ExeDir + constant.LogDir
-	if vari.ServerWorkDir != "" {
-		path = vari.ServerWorkDir + constant.LogDir
+	path := consts.ExeDir + constant.LogDir
+	if consts.ServerWorkDir != "" {
+		path = consts.ServerWorkDir + constant.LogDir
 	}
 
 	dir, _ := ioutil.ReadDir(path)

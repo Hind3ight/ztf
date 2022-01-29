@@ -4,6 +4,7 @@ import (
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	logUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/log"
 	"github.com/aaronchen2k/deeptest/internal/pkg/lib/string"
+	"github.com/fatih/color"
 	"path"
 	"sort"
 	"strconv"
@@ -134,7 +135,7 @@ func GetSupportLanguageExtArr() []string {
 func CheckSupportLanguages(scriptLang string) bool {
 	if LangMap[scriptLang] == nil {
 		langStr := strings.Join(GetSupportLanguageArrSort(), ", ")
-		logUtils.Errorf(i118Utils.Sprintf("only_support_script_language", langStr))
+		logUtils.PrintToWithColor(i118Utils.Sprintf("only_support_script_language", langStr)+"\n", color.FgRed)
 		return false
 	}
 
@@ -147,9 +148,9 @@ func GetSupportLanguageExtRegx() string {
 	return regx
 }
 
-func GetExtToNameMap() {
+func GetExtToNameMap() map[string]string {
 	if ScriptExtToNameMap != nil { // init once
-		return
+		return ScriptExtToNameMap
 	}
 
 	ScriptExtToNameMap = make(map[string]string, 0)
@@ -157,7 +158,7 @@ func GetExtToNameMap() {
 		ScriptExtToNameMap[LangMap[key]["extName"]] = key
 	}
 
-	return
+	return ScriptExtToNameMap
 }
 
 func GetLangByFile(filePath string) string {

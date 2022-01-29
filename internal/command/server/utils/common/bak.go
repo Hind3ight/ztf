@@ -5,7 +5,8 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	dateUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/date"
 	"io/ioutil"
 	"path"
@@ -17,17 +18,17 @@ func BakLog(src string) {
 	now := time.Now()
 	dateStr := dateUtils.DateStrNoSep(now)
 	timeStr := dateUtils.TimeStrNoSep(now)
-	dateDir := vari.AgentLogDir + dateStr + constant.PthSep
+	dateDir := consts.AgentLogDir + dateStr + constant.PthSep
 	dist := dateDir + timeStr + ".zip"
 
-	fileUtils.MkDirIfNeeded(vari.AgentLogDir)
+	fileUtils.MkDirIfNeeded(consts.AgentLogDir)
 
 	err := fileUtils.ZipFiles(dist, src)
 	if err != nil {
 		logUtils.Logger.Error(fmt.Sprintf("fail to zip test results '%s' to '%s', error %s", src, dist, err.Error()))
 	}
 
-	removeHistoryLog(vari.AgentLogDir)
+	removeHistoryLog(consts.AgentLogDir)
 }
 func removeHistoryLog(root string) {
 	dirs, _ := ioutil.ReadDir(root)
@@ -47,7 +48,7 @@ func removeHistoryLog(root string) {
 }
 
 func ListHistoryLog() (ret []map[string]string) {
-	dirs, _ := ioutil.ReadDir(vari.AgentLogDir)
+	dirs, _ := ioutil.ReadDir(consts.AgentLogDir)
 
 	for _, dir := range dirs {
 		dirName := dir.Name()
@@ -56,7 +57,7 @@ func ListHistoryLog() (ret []map[string]string) {
 			continue
 		}
 
-		files, _ := ioutil.ReadDir(vari.AgentLogDir + dirName)
+		files, _ := ioutil.ReadDir(consts.AgentLogDir + dirName)
 
 		for _, fi := range files {
 			name := fi.Name()

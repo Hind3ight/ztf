@@ -8,7 +8,7 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	assertUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/assert"
 	configUtils "github.com/aaronchen2k/deeptest/internal/pkg/lib/config"
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
@@ -25,8 +25,8 @@ func RunZTFTest(files []string, suiteIdStr, taskIdStr string) error {
 
 	if suiteIdStr != "" { // run with suite id
 		dir := fileUtils.AbsolutePath(".")
-		if vari.ServerProjectDir != "" {
-			dir = vari.ServerProjectDir
+		if consts.ServerProjectDir != "" {
+			dir = consts.ServerProjectDir
 		} else if len(files) > 0 {
 			dir = files[0]
 		}
@@ -35,8 +35,8 @@ func RunZTFTest(files []string, suiteIdStr, taskIdStr string) error {
 
 	} else if taskIdStr != "" { // run with task id,
 		dir := fileUtils.AbsolutePath(".")
-		if vari.ServerProjectDir != "" {
-			dir = vari.ServerProjectDir
+		if consts.ServerProjectDir != "" {
+			dir = consts.ServerProjectDir
 		} else if len(files) > 0 {
 			dir = files[0]
 		}
@@ -50,8 +50,8 @@ func RunZTFTest(files []string, suiteIdStr, taskIdStr string) error {
 		if suite != "" { // run from suite file
 			if dir == "" { // not found dir in files param
 				dir = fileUtils.AbsolutePath(".")
-				if vari.ServerProjectDir != "" {
-					dir = vari.ServerProjectDir
+				if consts.ServerProjectDir != "" {
+					dir = consts.ServerProjectDir
 				}
 			}
 

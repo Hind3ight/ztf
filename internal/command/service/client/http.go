@@ -5,7 +5,8 @@ import (
 	"github.com/aaronchen2k/deeptest/internal/command/model"
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	"github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	i118Utils "github.com/aaronchen2k/deeptest/internal/pkg/lib/i118"
 	"github.com/ajg/form"
 	"github.com/fatih/color"
@@ -19,19 +20,19 @@ import (
 func Get(url string) (string, bool) {
 	client := &http.Client{}
 
-	if vari.RequestType == constant.RequestTypePathInfo {
-		url = url + "?" + vari.SessionVar + "=" + vari.SessionId
+	if consts.RequestType == constant.RequestTypePathInfo {
+		url = url + "?" + consts.SessionVar + "=" + consts.SessionId
 	} else {
-		url = url + "&" + vari.SessionVar + "=" + vari.SessionId
+		url = url + "&" + consts.SessionVar + "=" + consts.SessionId
 	}
 
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_address") + url)
 	}
 
 	req, reqErr := http.NewRequest("GET", url, nil)
 	if reqErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.PrintToCmd(i118Utils.Sprintf("server_return")+reqErr.Error(), color.FgRed)
 		}
 		return "", false
@@ -39,14 +40,14 @@ func Get(url string) (string, bool) {
 
 	resp, respErr := client.Do(req)
 	if respErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.PrintToCmd(i118Utils.Sprintf("server_return")+respErr.Error(), color.FgRed)
 		}
 		return "", false
 	}
 
 	bodyStr, _ := ioutil.ReadAll(resp.Body)
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_return") + logUtils.ConvertUnicode(bodyStr))
 	}
 
@@ -54,13 +55,13 @@ func Get(url string) (string, bool) {
 	jsonErr := json.Unmarshal(bodyStr, &bodyJson)
 	if jsonErr != nil {
 		if strings.Index(string(bodyStr), "<html>") > -1 {
-			if vari.Verbose {
+			if consts.Verbose {
 				logUtils.Screen(i118Utils.Sprintf("server_return") + " HTML - " +
 					gohtml.FormatWithLineNo(string(bodyStr)))
 			}
 			return "", false
 		} else {
-			if vari.Verbose {
+			if consts.Verbose {
 				logUtils.PrintToCmd(jsonErr.Error(), color.FgRed)
 			}
 			return "", false
@@ -79,15 +80,15 @@ func Get(url string) (string, bool) {
 }
 
 func PostObject(url string, params interface{}, useFormFormat bool) (string, bool) {
-	if vari.RequestType == constant.RequestTypePathInfo {
-		url = url + "?" + vari.SessionVar + "=" + vari.SessionId
+	if consts.RequestType == constant.RequestTypePathInfo {
+		url = url + "?" + consts.SessionVar + "=" + consts.SessionId
 	} else {
-		url = url + "&" + vari.SessionVar + "=" + vari.SessionId
+		url = url + "&" + consts.SessionVar + "=" + consts.SessionId
 	}
 	url = url + "&XDEBUG_SESSION_START=PHPSTORM"
 
 	jsonStr, _ := json.Marshal(params)
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_address") + url)
 	}
 
@@ -101,13 +102,13 @@ func PostObject(url string, params interface{}, useFormFormat bool) (string, boo
 		val = re3.ReplaceAllStringFunc(string(val), replacePostData)
 	}
 
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_params") + val)
 	}
 
 	req, reqErr := http.NewRequest("POST", url, strings.NewReader(val))
 	if reqErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.PrintToCmd(i118Utils.Sprintf("server_return")+reqErr.Error(), color.FgRed)
 		}
 		return "", false
@@ -117,14 +118,14 @@ func PostObject(url string, params interface{}, useFormFormat bool) (string, boo
 
 	resp, respErr := client.Do(req)
 	if respErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.PrintToCmd(i118Utils.Sprintf("server_return")+respErr.Error(), color.FgRed)
 		}
 		return "", false
 	}
 
 	bodyStr, _ := ioutil.ReadAll(resp.Body)
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_return") + logUtils.ConvertUnicode(bodyStr))
 	}
 
@@ -132,13 +133,13 @@ func PostObject(url string, params interface{}, useFormFormat bool) (string, boo
 	jsonErr := json.Unmarshal(bodyStr, &bodyJson)
 	if jsonErr != nil {
 		if strings.Index(string(bodyStr), "<html>") > -1 { // some api return a html
-			if vari.Verbose {
+			if consts.Verbose {
 				logUtils.Screen(i118Utils.Sprintf("server_return") + " HTML - " +
 					gohtml.FormatWithLineNo(string(bodyStr)))
 			}
 			return string(bodyStr), true
 		} else {
-			if vari.Verbose {
+			if consts.Verbose {
 				logUtils.PrintToCmd(i118Utils.Sprintf("server_return")+jsonErr.Error(), color.FgRed)
 			}
 			return "", false
@@ -157,7 +158,7 @@ func PostObject(url string, params interface{}, useFormFormat bool) (string, boo
 }
 
 func PostStr(url string, params map[string]string) (msg string, ok bool) {
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_address") + url)
 	}
 	client := &http.Client{}
@@ -172,13 +173,13 @@ func PostStr(url string, params map[string]string) (msg string, ok bool) {
 		idx++
 	}
 
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_params") + paramStr)
 	}
 
 	req, reqErr := http.NewRequest("POST", url, strings.NewReader(paramStr))
 	if reqErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.PrintToCmd(reqErr.Error(), color.FgRed)
 		}
 		ok = false
@@ -186,11 +187,11 @@ func PostStr(url string, params map[string]string) (msg string, ok bool) {
 	}
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("cookie", vari.SessionVar+"="+vari.SessionId)
+	req.Header.Set("cookie", consts.SessionVar+"="+consts.SessionId)
 
 	resp, respErr := client.Do(req)
 	if respErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			logUtils.PrintToCmd(respErr.Error(), color.FgRed)
 		}
 		ok = false
@@ -198,14 +199,14 @@ func PostStr(url string, params map[string]string) (msg string, ok bool) {
 	}
 
 	bodyStr, _ := ioutil.ReadAll(resp.Body)
-	if vari.Verbose {
+	if consts.Verbose {
 		logUtils.Screen(i118Utils.Sprintf("server_return") + logUtils.ConvertUnicode(bodyStr))
 	}
 
 	var bodyJson model.ZentaoResponse
 	jsonErr := json.Unmarshal(bodyStr, &bodyJson)
 	if jsonErr != nil {
-		if vari.Verbose {
+		if consts.Verbose {
 			if strings.Index(url, "login") == -1 { // jsonErr caused by login request return a html
 				logUtils.PrintToCmd(jsonErr.Error(), color.FgRed)
 			}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/aaronchen2k/deeptest/internal/comm/consts"
 	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+	"github.com/sirupsen/logrus"
 	"github.com/snowlyg/helper/dir"
 	"io/ioutil"
 	"os"
@@ -12,6 +13,8 @@ import (
 	"strconv"
 	"strings"
 )
+
+var Logger *logrus.Logger
 
 func GetLogDir(projectPath string) string {
 	pth := filepath.Join(projectPath, commConsts.LogDirName)

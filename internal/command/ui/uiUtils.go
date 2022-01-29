@@ -1,7 +1,7 @@
 package ui
 
 import (
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
 	"github.com/awesome-gocui/gocui"
 	"regexp"
 	"strings"
@@ -14,7 +14,7 @@ const (
 func BindEventForInputWidgets(arr []string) {
 	for _, v := range arr {
 		if isInput(v) {
-			vari.Cui.SetKeybinding(v, gocui.MouseLeft, gocui.ModNone, SetCurrView(v))
+			consts.Cui.SetKeybinding(v, gocui.MouseLeft, gocui.ModNone, SetCurrView(v))
 		}
 	}
 }
@@ -27,20 +27,20 @@ func Quit(g *gocui.Gui, v *gocui.View) error {
 }
 
 func SupportScroll(name string) error {
-	v, err := vari.Cui.View(name)
+	v, err := consts.Cui.View(name)
 	if err != nil {
 		return nil
 	}
 
 	v.Wrap = true
 
-	if err := vari.Cui.SetKeybinding(name, gocui.MouseLeft, gocui.ModNone, SetCurrView(name)); err != nil {
+	if err := consts.Cui.SetKeybinding(name, gocui.MouseLeft, gocui.ModNone, SetCurrView(name)); err != nil {
 		return err
 	}
-	if err := vari.Cui.SetKeybinding(name, gocui.KeyArrowUp, gocui.ModNone, scrollEvent(-1)); err != nil {
+	if err := consts.Cui.SetKeybinding(name, gocui.KeyArrowUp, gocui.ModNone, scrollEvent(-1)); err != nil {
 		return err
 	}
-	if err := vari.Cui.SetKeybinding(name, gocui.KeyArrowDown, gocui.ModNone, scrollEvent(1)); err != nil {
+	if err := consts.Cui.SetKeybinding(name, gocui.KeyArrowDown, gocui.ModNone, scrollEvent(1)); err != nil {
 		return err
 	}
 
@@ -100,7 +100,7 @@ func scroll(v *gocui.View, dy int) bool {
 }
 
 func SupportRowHighlight(name string) error {
-	v, _ := vari.Cui.View(name)
+	v, _ := consts.Cui.View(name)
 
 	v.Wrap = true
 	v.SelBgColor = gocui.ColorWhite
@@ -118,7 +118,7 @@ func SetCurrView(name string) func(g *gocui.Gui, v *gocui.View) error {
 
 func HighlightTab(view string, views []string) {
 	for _, name := range views {
-		v, _ := vari.Cui.View(name)
+		v, _ := consts.Cui.View(name)
 
 		if v.Name() == view {
 			v.Highlight = true

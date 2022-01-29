@@ -7,7 +7,8 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	logUtils "github.com/aaronchen2k/deeptest/internal/command/utils/log"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"github.com/mattn/go-runewidth"
 	"io/ioutil"
 	"path"
@@ -18,18 +19,18 @@ import (
 func RetrieveUnitResult(startTime int64) (suites []model.UnitTestSuite, resultDir string) {
 	resultFiles := make([]string, 0)
 
-	if vari.UnitTestType == constant.UnitTestTypeJunit && vari.UnitTestTool == constant.UnitTestToolMvn {
+	if consts.UnitTestType == constant.UnitTestTypeJunit && consts.UnitTestTool == constant.UnitTestToolMvn {
 		resultDir = fmt.Sprintf("target%ssurefire-reports%s", constant.PthSep, constant.PthSep)
-	} else if vari.UnitTestType == constant.UnitTestTypeTestNG && vari.UnitTestTool == constant.UnitTestToolMvn {
+	} else if consts.UnitTestType == constant.UnitTestTypeTestNG && consts.UnitTestTool == constant.UnitTestToolMvn {
 		resultDir = fmt.Sprintf("target%ssurefire-reports%sjunitreports", constant.PthSep, constant.PthSep)
-	} else if vari.UnitTestType == constant.UnitTestTypeRobot || vari.UnitTestType == constant.UnitTestTypeCypress {
-		resultDir = vari.UnitTestResults
+	} else if consts.UnitTestType == constant.UnitTestTypeRobot || consts.UnitTestType == constant.UnitTestTypeCypress {
+		resultDir = consts.UnitTestResults
 	} else {
-		resultDir = vari.UnitTestResult
+		resultDir = consts.UnitTestResult
 	}
 
-	if vari.ServerProjectDir != "" {
-		resultDir = vari.ServerProjectDir + resultDir
+	if consts.ServerProjectDir != "" {
+		resultDir = consts.ServerProjectDir + resultDir
 	}
 
 	if fileUtils.IsDir(resultDir) {
@@ -55,41 +56,41 @@ func RetrieveUnitResult(startTime int64) (suites []model.UnitTestSuite, resultDi
 		var err error
 		var testSuite model.UnitTestSuite
 
-		if vari.UnitTestType == "junit" || vari.UnitTestType == "testng" {
+		if consts.UnitTestType == "junit" || consts.UnitTestType == "testng" {
 			testSuite = model.UnitTestSuite{}
 			err = xml.Unmarshal([]byte(content), &testSuite)
 
-		} else if vari.UnitTestType == "phpunit" {
+		} else if consts.UnitTestType == "phpunit" {
 			phpTestSuite := model.PhpUnitSuites{}
 			err = xml.Unmarshal([]byte(content), &phpTestSuite)
 			if err == nil {
 				testSuite = ConvertPhpUnitResult(phpTestSuite)
 			}
-		} else if vari.UnitTestType == "pytest" {
+		} else if consts.UnitTestType == "pytest" {
 			pyTestSuite := model.PyTestSuites{}
 			err = xml.Unmarshal([]byte(content), &pyTestSuite)
 			if err == nil {
 				testSuite = ConvertPyTestResult(pyTestSuite)
 			}
-		} else if vari.UnitTestType == "jest" {
+		} else if consts.UnitTestType == "jest" {
 			jestSuite := model.JestSuites{}
 			err = xml.Unmarshal([]byte(content), &jestSuite)
 			if err == nil {
 				testSuite = ConvertJestResult(jestSuite)
 			}
-		} else if vari.UnitTestType == "gtest" {
+		} else if consts.UnitTestType == "gtest" {
 			gTestSuite := model.GTestSuites{}
 			err = xml.Unmarshal([]byte(content), &gTestSuite)
 			if err == nil {
 				testSuite = ConvertGTestResult(gTestSuite)
 			}
-		} else if vari.UnitTestType == "qtest" {
+		} else if consts.UnitTestType == "qtest" {
 			qTestSuite := model.QTestSuites{}
 			err = xml.Unmarshal([]byte(content), &qTestSuite)
 			if err == nil {
 				testSuite = ConvertQTestResult(qTestSuite)
 			}
-		} else if vari.UnitTestType == "cppunit" {
+		} else if consts.UnitTestType == "cppunit" {
 			content = strings.Replace(content, "ISO-8859-1", "UTF-8", -1)
 
 			cppUnitSuites := model.CppUnitSuites{}
@@ -97,13 +98,13 @@ func RetrieveUnitResult(startTime int64) (suites []model.UnitTestSuite, resultDi
 			if err == nil {
 				testSuite = ConvertCppUnitResult(cppUnitSuites)
 			}
-		} else if vari.UnitTestType == "robot" {
+		} else if consts.UnitTestType == "robot" {
 			robotResult := model.RobotResult{}
 			err = xml.Unmarshal([]byte(content), &robotResult)
 			if err == nil {
 				testSuite = ConvertRobotResult(robotResult)
 			}
-		} else if vari.UnitTestType == "cypress" {
+		} else if consts.UnitTestType == "cypress" {
 			cyResult := model.CypressTestsuites{}
 			err = xml.Unmarshal([]byte(content), &cyResult)
 			if err == nil {

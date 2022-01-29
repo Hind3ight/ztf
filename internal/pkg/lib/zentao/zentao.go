@@ -5,7 +5,8 @@ import (
 	constant "github.com/aaronchen2k/deeptest/internal/command/utils/const"
 	fileUtils "github.com/aaronchen2k/deeptest/internal/command/utils/file"
 	langUtils "github.com/aaronchen2k/deeptest/internal/command/utils/lang"
-	"github.com/aaronchen2k/deeptest/internal/command/utils/vari"
+	"github.com/aaronchen2k/deeptest/internal/pkg/consts"
+
 	"path"
 	"path/filepath"
 	"regexp"
@@ -16,7 +17,7 @@ import (
 func GenApiUri(module string, methd string, param string) string {
 	var uri string
 
-	if vari.RequestType == constant.RequestTypePathInfo {
+	if consts.RequestType == constant.RequestTypePathInfo {
 		uri = fmt.Sprintf("%s-%s-%s.json", module, methd, param)
 	} else {
 		uri = fmt.Sprintf("index.php?m=%s&f=%s&%s&t=json", module, methd, param)
